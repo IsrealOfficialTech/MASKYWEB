@@ -1,0 +1,13 @@
+body {
+  background: linear-gradient(135deg, #00c853, #00695c);
+}
+
+.card {
+  border: none;
+}
+
+#sessionId {
+  font-size: 1.1rem;
+  color: #2e7d32;
+  word-break: break-all;
+}
