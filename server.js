@@ -1,10 +1,13 @@
 import express from "express";
 import bodyParser from "body-parser";
+import cors from "cors";
 import { makeWASocket, useMultiFileAuthState } from "@whiskeysockets/baileys";
-import qrcode from "qrcode";
 import fs from "fs";
 
 const app = express();
+const PORT = process.env.PORT || 5000;
+
+app.use(cors());
 app.use(bodyParser.json());
 
 app.post("/generate-session", async (req, res) => {
@@ -22,18 +25,19 @@ app.post("/generate-session", async (req, res) => {
     sock.ev.on("creds.update", saveCreds);
 
     sock.ev.on("connection.update", (update) => {
-      const { connection, lastDisconnect } = update;
+      const { connection } = update;
+
       if (connection === "open") {
         const sessionData = fs.readFileSync(`./sessions/${phone}/creds.json`, "utf8");
 
-        // send session back
+        // Send session back to frontend
         res.json({
           success: true,
           sessionId: sessionData
         });
 
-        // Send session file to the user via WhatsApp
-        sock.sendMessage(phone + "@s.whatsapp.net", { text: `Here is your session:\n${sessionData}` });
+        // Send session to user on WhatsApp
+        sock.sendMessage(phone + "@s.whatsapp.net", { text: `Your session for MASKY_BOT_MD_V4:\n${sessionData}` });
       }
     });
   } catch (error) {
@@ -42,4 +46,4 @@ app.post("/generate-session", async (req, res) => {
   }
 });
 
-app.listen(5000, () => console.log("✅ Backend running on http://localhost:5000"));
+app.listen(PORT, () => console.log(`✅ MASKY_BOT_MD_V4 running on port ${PORT}`));
