@@ -8,7 +8,7 @@ document.getElementById("sessionForm").addEventListener("submit", async function
   }
 
   try {
-    const response = await fetch("http://localhost:5000/generate-session", {
+    const response = await fetch("/generate-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ phone })
