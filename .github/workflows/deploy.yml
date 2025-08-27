@@ -1,0 +1,31 @@
+name: Deploy MASKY_BOT_MD_V4
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Linter (optional)
+        run: npm run lint --if-present
+
+      - name: Start Bot
+        run: |
+          echo "Starting MASKY_BOT_MD_V4..."
+          node server.js
