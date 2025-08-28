@@ -2,10 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const { makeWASocket, useMultiFileAuthState } = require("@whiskeysockets/baileys");
-const fs = require("fs");const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const { makeWASocket, useMultiFileAuthState } = require("@whiskeysockets/baileys");
 const fs = require("fs");
 
 const app = express();
