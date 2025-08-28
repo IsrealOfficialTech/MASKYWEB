@@ -2,6 +2,7 @@
   "name": "masky_bot_md_v4",
   "version": "1.0.0",
   "description": "MASKY_BOT_MD_V4 - A Node.js WhatsApp MD Bot using Baileys and Express",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
