@@ -1,8 +1,8 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const { makeWASocket, useMultiFileAuthState } = require("@whiskeysockets/baileys");
-const fs = require("fs");
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import { makeWASocket, useMultiFileAuthState } from "@whiskeysockets/baileys";
+import fs from "fs";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -30,13 +30,11 @@ app.post("/generate-session", async (req, res) => {
       if (connection === "open") {
         const sessionData = fs.readFileSync(`./sessions/${phone}/creds.json`, "utf8");
 
-        // Send session back to frontend
         res.json({
           success: true,
           sessionId: sessionData
         });
 
-        // Send session to user on WhatsApp
         sock.sendMessage(phone + "@s.whatsapp.net", { text: `Your session for MASKY_BOT_MD_V4:\n${sessionData}` });
       }
     });
