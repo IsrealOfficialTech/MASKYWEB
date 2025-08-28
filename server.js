@@ -1,8 +1,12 @@
-import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
-import { makeWASocket, useMultiFileAuthState } from "@whiskeysockets/baileys";
-import fs from "fs";
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const { makeWASocket, useMultiFileAuthState } = require("@whiskeysockets/baileys");
+const fs = require("fs");const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const { makeWASocket, useMultiFileAuthState } = require("@whiskeysockets/baileys");
+const fs = require("fs");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
