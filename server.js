@@ -12,7 +12,9 @@ app.use(bodyParser.json());
 
 app.post("/generate-session", async (req, res) => {
   const { phone } = req.body;
-  if (!phone) return res.json({ success: false, message: "Phone number required" });
+  if (!phone) {
+    return res.json({ success: false, message: "Phone number required" });
+  }
 
   try {
     const { state, saveCreds } = await useMultiFileAuthState(`./sessions/${phone}`);
@@ -30,12 +32,16 @@ app.post("/generate-session", async (req, res) => {
       if (connection === "open") {
         const sessionData = fs.readFileSync(`./sessions/${phone}/creds.json`, "utf8");
 
+        // Send session back to frontend
         res.json({
           success: true,
           sessionId: sessionData
         });
 
-        sock.sendMessage(phone + "@s.whatsapp.net", { text: `Your session for MASKY_BOT_MD_V4:\n${sessionData}` });
+        // Send session to user on WhatsApp
+        sock.sendMessage(phone + "@s.whatsapp.net", {
+          text: `Your session for MASKY_BOT_MD_V4:\n${sessionData}`
+        });
       }
     });
   } catch (error) {
@@ -44,4 +50,6 @@ app.post("/generate-session", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`✅ MASKY_BOT_MD_V4 running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`✅ MASKY_BOT_MD_V4 running on port ${PORT}`);
+});
