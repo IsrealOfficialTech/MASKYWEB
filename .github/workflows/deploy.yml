@@ -3,32 +3,26 @@ name: Deploy MASKY_BOT_MD_V4
 on:
   push:
     branches:
-      - main   # Runs workflow when you push to main branch
-  workflow_dispatch: # Allow manual trigger
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 📥 Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: ⚡ Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '18'
           cache: 'npm'
 
-      - name: 📦 Install Dependencies
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - name: 🔍 Check for Lint/Test (optional)
-        run: |
-          npm run lint --if-present
-          npm test --if-present
+      - name: Build project
+        run: npm run build --if-present
 
-      - name: 🚀 Start MASKY_BOT_MD_V4
-        run: |
-          echo "Starting MASKY_BOT_MD_V4..."
-          npm start
+      - name: Start MASKY_BOT_MD_V4
+        run: npm start
