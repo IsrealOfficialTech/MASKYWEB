@@ -15,7 +15,7 @@
     "bot",
     "masky"
   ],
-  "author": "YourName",
+  "author": "Fasasi Isreal Abiola",
   "license": "MIT",
   "dependencies": {
     "@whiskeysockets/baileys": "^6.7.5",
